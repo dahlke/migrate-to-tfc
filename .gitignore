@@ -1,0 +1,5 @@
+statefiles/
+.vscode/
+venv/
+*.tfstate
+secrets.sh

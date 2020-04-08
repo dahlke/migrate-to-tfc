@@ -1,0 +1,2 @@
+google-cloud-storage==1.26.0
+terrasnek==0.0.1
