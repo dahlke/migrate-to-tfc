@@ -1,7 +1,6 @@
 [
     {
         "gcs-blob-path": "demo-tfstates/demo-project-aws/two-tier-demo-app-aws.tfstate",
-        "statefile-name": null,
         "statefile-local-path": null,
         "repo": "dahlke/tfe-demo",
         "working-dir": "AWS-two-tier-tfe-demo-app/aws",

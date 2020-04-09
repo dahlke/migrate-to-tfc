@@ -7,40 +7,47 @@ from terrasnek.api import TFE
 from google.cloud import storage
 
 TFE_TOKEN = os.getenv("TFE_TOKEN", None)
+TFE_OAUTH_TOKEN_ID = os.getenv("TFE_OAUTH_TOKEN_ID", None)
 TFE_URL = os.getenv("TFE_URL", "https://app.terraform.io")
 TFE_ORG = os.getenv("TFE_ORG", None)
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", None)
 
 if __name__ == "__main__":
-    # Create the GCS client
-    storage_client = storage.Client()
-
-    # Retrieve the blob info from the GCS bucket
-    blobs = storage_client.list_blobs(GCS_BUCKET_NAME)
-
     migration_targets = []
 
-    # Read the migration targets from the file system
+    # Read the Migration Map from the file system into a Python dict
     with open("migration.json", "r") as f:
         migration_targets = json.loads(f.read())
 
+    # Create the GCS client
+    storage_client = storage.Client()
+
+    # Create a Terraform Enterprise client with the TFE_TOKEN from the
+    # environment
+    api = TFE(TFE_TOKEN, url=TFE_URL)
+
+    # Set the orgranization to work in for our client
+    api.set_organization(TFE_ORG)
+
     for mt in migration_targets:
+        # Connect to the bucket we want to download blobs from
         bucket = storage_client.bucket(GCS_BUCKET_NAME)
-        blob_path = mt['gcs-blob-path']
-        blob = bucket.blob(blob_path)
+
+        # Create a blob object based on the blob path in the migration targets dict
+        blob = bucket.blob(mt["gcs-blob-path"])
+
+        # Extract the statefile name from the blob and use
+        # it to define the path we want to save the statefile
+        # locally
         statefile_name = blob.name.split("/")[-1]
         statefile_path = f"statefiles/{statefile_name}"
+
+        # Download the statefile to the local path just defined
         blob.download_to_filename(statefile_path)
 
         # Add the local path we saved the statefile to
         # in the migration targets dict for usage later
         mt["statefile-local-path"] = statefile_path
-
-    api = TFE(TFE_TOKEN, url=TFE_URL)
-    api.set_organization(TFE_ORG)
-    oauth_clients = api.oauth_clients.lst()
-    # TODO: I should probably specify this as an env var in case there are many.
-    oauth_client_id = api.oauth_clients.lst()["data"][0]["relationships"]["oauth-tokens"]["data"][0]["id"]
 
     for mt in migration_targets:
         # Configure our create payload with the data
@@ -53,7 +60,7 @@ if __name__ == "__main__":
                     "working-directory": mt["working-dir"],
                     "vcs-repo": {
                         "identifier": mt["repo"],
-                        "oauth-token-id": oauth_client_id,
+                        "oauth-token-id": TFE_OAUTH_TOKEN_ID,
                         "branch": mt["branch"],
                         "default-branch": True
                     }
@@ -62,9 +69,9 @@ if __name__ == "__main__":
             }
         }
 
-        print(create_ws_payload)
         # Create a workspace with the VCS repo attached
         ws = api.workspaces.create(create_ws_payload)
+        # Save the workspace ID for usage when adding a state version
         ws_id = ws["data"]["id"]
 
         # Read in the statefile contents we just pulled from GCS
