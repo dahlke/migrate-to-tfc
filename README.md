@@ -2,10 +2,10 @@
 ```
 export GOOGLE_APPLICATION_CREDENTIALS=""
 export GCS_BUCKET_NAME=""
-export TFE_TOKEN=""
-export TFE_ORG=""
-export TFE_URL=""
-export TFE_OAUTH_TOKEN_ID=""
+export TFC_TOKEN=""
+export TFC_ORG=""
+export TFC_URL=""
+export TFC_OAUTH_TOKEN_ID=""
 ```
 
 ### Run Script

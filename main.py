@@ -3,13 +3,13 @@ import os
 import hashlib
 import base64
 import time
-from terrasnek.api import TFE
+from terrasnek.api import TFC
 from google.cloud import storage
 
-TFE_TOKEN = os.getenv("TFE_TOKEN", None)
-TFE_OAUTH_TOKEN_ID = os.getenv("TFE_OAUTH_TOKEN_ID", None)
-TFE_URL = os.getenv("TFE_URL", "https://app.terraform.io")
-TFE_ORG = os.getenv("TFE_ORG", None)
+TFC_TOKEN = os.getenv("TFC_TOKEN", None)
+TFC_OAUTH_TOKEN_ID = os.getenv("TFC_OAUTH_TOKEN_ID", None)
+TFC_URL = os.getenv("TFC_URL", "https://app.terraform.io")
+TFC_ORG = os.getenv("TFC_ORG", None)
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", None)
 
 if __name__ == "__main__":
@@ -22,12 +22,12 @@ if __name__ == "__main__":
     # Create the GCS client
     storage_client = storage.Client()
 
-    # Create a Terraform Enterprise client with the TFE_TOKEN from the
+    # Create a Terraform Enterprise client with the TFC_TOKEN from the
     # environment
-    api = TFE(TFE_TOKEN, url=TFE_URL)
+    api = TFC(TFC_TOKEN, url=TFC_URL)
 
     # Set the orgranization to work in for our client
-    api.set_organization(TFE_ORG)
+    api.set_organization(TFC_ORG)
 
     for mt in migration_targets:
         # Connect to the bucket we want to download blobs from
@@ -60,7 +60,7 @@ if __name__ == "__main__":
                     "working-directory": mt["working-dir"],
                     "vcs-repo": {
                         "identifier": mt["repo"],
-                        "oauth-token-id": TFE_OAUTH_TOKEN_ID,
+                        "oauth-token-id": TFC_OAUTH_TOKEN_ID,
                         "branch": mt["branch"],
                         "default-branch": True
                     }
