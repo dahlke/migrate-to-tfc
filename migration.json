@@ -2,27 +2,27 @@
     {
         "gcs-blob-path": "demo-tfstates/demo-project-aws/two-tier-demo-app-aws.tfstate",
         "statefile-local-path": null,
-        "repo": "dahlke/tfe-demo",
-        "working-dir": "AWS-two-tier-tfe-demo-app/aws",
-        "workspace-name": "AWS-gcs-to-tfe-demo",
+        "repo": "dahlke/tfc-demo",
+        "working-dir": "AWS-two-tier-tfc-demo-app/aws",
+        "workspace-name": "AWS-gcs-to-tfc-demo",
         "branch": "master",
         "tf-version": "0.12.1"
     },
     {
         "gcs-blob-path": "demo-tfstates/demo-project-gcp/two-tier-demo-app-gcp.tfstate",
         "statefile-local-path": null,
-        "repo": "dahlke/tfe-demo",
-        "working-dir": "two-tier-tfe-demo-app/gcp",
-        "workspace-name": "GCP-gcs-to-tfe-demo",
+        "repo": "dahlke/tfc-demo",
+        "working-dir": "two-tier-tfc-demo-app/gcp",
+        "workspace-name": "GCP-gcs-to-tfc-demo",
         "branch": "master",
         "tf-version": "0.12.1"
     },
     {
         "gcs-blob-path": "demo-tfstates/demo-project-azure/two-tier-demo-app-azure.tfstate",
         "statefile-local-path": null,
-        "repo": "dahlke/tfe-demo",
-        "working-dir": "two-tier-tfe-demo-app/azure",
-        "workspace-name": "AZURE-gcs-to-tfe-demo",
+        "repo": "dahlke/tfc-demo",
+        "working-dir": "two-tier-tfc-demo-app/azure",
+        "workspace-name": "AZURE-gcs-to-tfc-demo",
         "branch": "master",
         "tf-version": "0.12.1"
     }
