@@ -2,7 +2,7 @@
     {
         "gcs-blob-path": "demo-tfstates/demo-project-aws/two-tier-demo-app-aws.tfstate",
         "statefile-local-path": null,
-        "repo": "dahlke/tfc-demo",
+        "repo": "dahlke/tfc-blog-example",
         "working-dir": "AWS-two-tier-tfc-demo-app/aws",
         "workspace-name": "AWS-gcs-to-tfc-demo",
         "branch": "master",
@@ -11,7 +11,7 @@
     {
         "gcs-blob-path": "demo-tfstates/demo-project-gcp/two-tier-demo-app-gcp.tfstate",
         "statefile-local-path": null,
-        "repo": "dahlke/tfc-demo",
+        "repo": "dahlke/tfc-blog-example",
         "working-dir": "two-tier-tfc-demo-app/gcp",
         "workspace-name": "GCP-gcs-to-tfc-demo",
         "branch": "master",
@@ -20,7 +20,7 @@
     {
         "gcs-blob-path": "demo-tfstates/demo-project-azure/two-tier-demo-app-azure.tfstate",
         "statefile-local-path": null,
-        "repo": "dahlke/tfc-demo",
+        "repo": "dahlke/tfc-blog-example",
         "working-dir": "two-tier-tfc-demo-app/azure",
         "workspace-name": "AZURE-gcs-to-tfc-demo",
         "branch": "master",
