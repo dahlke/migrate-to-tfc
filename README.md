@@ -1,3 +1,6 @@
+# Migrate to TFC Demo Script
+Companion [blog](https://medium.com/hashicorp-engineering/migrating-a-lot-of-state-with-python-and-the-terraform-cloud-api-997ec798cd11).
+
 ### Set env vars
 ```
 export GOOGLE_APPLICATION_CREDENTIALS=""
